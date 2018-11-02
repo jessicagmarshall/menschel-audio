@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import ReactTable from 'react-table'
-import wavfile from './../audio/testfile1.wav'
 import Sound from 'react-sound'
 import 'react-table/react-table.css'
 
@@ -16,6 +15,9 @@ const data = [{
 }, {
   input: 'dummy data',
   output: 'lalala'
+}, {
+  input: 'socio political motivation',
+  output: 'techno-utopia'
 }, {
   input: 'socio political motivation',
   output: 'techno-utopia'
@@ -42,15 +44,23 @@ class Main extends Component {
   constructor () {
     super()
     this.state = {
-      rowContent: {input: '', output: ''}
+      rowContent: {input: '', output: ''},
+      audio: ''
     }
     this.injectThProps = this.injectThProps.bind(this)
-    this.chooseNextSound = this.chooseNextSound.bind(this)
+    this.generateSet = this.generateSet.bind(this)
   }
 
   componentWillMount () {
-    let startRow = this.getRandomInt(0, data.length)
-    this.setState({rowIndex: startRow, rowContent: {input: data[startRow].input, output: data[startRow].output}})
+    this.generateSet()
+  }
+
+  generateSet (input) {
+    let nextRow
+    input === undefined
+      ? nextRow = this.getRandomInt(0, data.length)
+      : nextRow = input
+    this.setState({rowIndex: nextRow, rowContent: {input: data[nextRow].input, output: data[nextRow].output}, audio: 'http://localhost:3003/audio?id=' + nextRow})
   }
 
   getRandomInt (min, max) {
@@ -65,20 +75,13 @@ class Main extends Component {
     }
   }
 
-  chooseNextSound () {
-    this.setState({rowIndex: 2, rowContent: {input: data[2].input, output: data[2].output}})
-  }
-
   render () {
     return (
       <div>
-        { this.state.rowIndex === 0
-          ? <Sound url={wavfile}
-            playStatus={Sound.status.PLAYING}
-            onFinishedPlaying={this.chooseNextSound}
-          />
-          : null
-        }
+        <Sound url={this.state.audio}
+          playStatus={Sound.status.PLAYING}
+          onFinishedPlaying={this.generateSet}
+        />
         <ReactTable
           data={data}
           columns={columns}
@@ -89,8 +92,7 @@ class Main extends Component {
             if (typeof rowInfo !== 'undefined') {
               return {
                 onClick: (e, handleOriginal) => {
-                  console.log(rowInfo.original)
-                  this.setState({rowIndex: rowInfo.index, rowContent: rowInfo.original})
+                  this.generateSet(rowInfo.index)
                 },
                 style: {
                   background: rowInfo.index === this.state.rowIndex ? 'yellow' : 'white'
