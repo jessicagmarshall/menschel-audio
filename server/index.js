@@ -1,8 +1,11 @@
 let express = require('express')
 let fs = require('fs')
+let cors = require('cors')
 
 // initialize an express app
 let app = express()
+
+app.use(cors())
 
 app.listen(3003, function () {
   console.log('listening on port 3003')

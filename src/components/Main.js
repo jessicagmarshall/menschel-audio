@@ -60,7 +60,12 @@ class Main extends Component {
     input === undefined
       ? nextRow = this.getRandomInt(0, data.length)
       : nextRow = input
-    this.setState({rowIndex: nextRow, rowContent: {input: data[nextRow].input, output: data[nextRow].output}, audio: 'http://localhost:3003/audio?id=' + nextRow})
+    console.log(nextRow)
+    this.setState({rowIndex: nextRow,
+      rowContent: {input: data[nextRow].input, output: data[nextRow].output},
+      audioUrl: 'http://localhost:3003/audio?id=' + nextRow
+      // audioUrl: '../audio/testfile' + nextRow + '.wav'
+    })
   }
 
   getRandomInt (min, max) {
@@ -78,7 +83,7 @@ class Main extends Component {
   render () {
     return (
       <div>
-        <Sound url={this.state.audio}
+        <Sound url={this.state.audioUrl}
           playStatus={Sound.status.PLAYING}
           onFinishedPlaying={this.generateSet}
         />
