@@ -45,6 +45,7 @@ class Main extends Component {
       rowContent: {input: '', output: ''}
     }
     this.injectThProps = this.injectThProps.bind(this)
+    this.chooseNextSound = this.chooseNextSound.bind(this)
   }
 
   componentWillMount () {
@@ -64,12 +65,17 @@ class Main extends Component {
     }
   }
 
+  chooseNextSound () {
+    this.setState({rowIndex: 2, rowContent: {input: data[2].input, output: data[2].output}})
+  }
+
   render () {
     return (
       <div>
         { this.state.rowIndex === 0
           ? <Sound url={wavfile}
             playStatus={Sound.status.PLAYING}
+            onFinishedPlaying={this.chooseNextSound}
           />
           : null
         }
