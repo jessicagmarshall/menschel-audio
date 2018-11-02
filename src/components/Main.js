@@ -21,11 +21,13 @@ class Main extends Component {
   constructor () {
     super()
     this.state = {
-      rowContent: {input: '', output: ''},
-      audio: ''
+      rowContent: {input: '', output: '', id: ''},
+      audio: '',
+      paused: false
     }
     this.injectThProps = this.injectThProps.bind(this)
     this.generateSet = this.generateSet.bind(this)
+    this.togglePaused = this.togglePaused.bind(this)
   }
 
   componentWillMount () {
@@ -37,9 +39,8 @@ class Main extends Component {
     input === undefined
       ? nextRow = this.getRandomInt(0, data.length)
       : nextRow = input
-    console.log(nextRow)
     this.setState({rowIndex: nextRow,
-      rowContent: {input: data[nextRow].input, output: data[nextRow].output},
+      rowContent: {input: data[nextRow].input, output: data[nextRow].output, id: data[nextRow].audio},
       audioUrl: 'http://localhost:3003/audio?id=' + nextRow
     })
   }
@@ -56,11 +57,17 @@ class Main extends Component {
     }
   }
 
+  togglePaused () {
+    this.state.paused
+      ? this.setState({paused: false})
+      : this.setState({paused: true})
+  }
+
   render () {
     return (
       <div>
         <Sound url={this.state.audioUrl}
-          playStatus={Sound.status.PLAYING}
+          playStatus={this.state.paused ? Sound.status.PAUSED : Sound.status.PLAYING}
           onFinishedPlaying={this.generateSet}
         />
         <ReactTable
@@ -69,7 +76,7 @@ class Main extends Component {
           showPagination={false}
           sortable={false}
           loadingText={null}
-          defaultPageSize={data.length + 1}
+          defaultPageSize={data.length + 2}
           getTdProps={(state, rowInfo, column, instance) => {
             if (typeof rowInfo !== 'undefined') {
               return {
@@ -88,7 +95,8 @@ class Main extends Component {
         <ReactTable
           data={[{
             input: this.state.rowContent.input,
-            output: this.state.rowContent.output
+            output: this.state.rowContent.output,
+            audio: this.state.rowContent.id
           }]}
           columns={columns}
           getTheadThProps={this.injectThProps}
@@ -96,7 +104,14 @@ class Main extends Component {
           sortable={false}
           minRows={1}
           loadingText={null}
-          style={{position: 'fixed', width: '100%', backgroundColor: 'yellow', bottom: 0, height: 35}}
+          style={{position: 'fixed', width: '100%', backgroundColor: 'yellow', bottom: 0, height: 60}}
+          getTdProps={(state, rowInfo, column, instance) => {
+            return {
+              onClick: (e, handleOriginal) => {
+                this.togglePaused()
+              }
+            }
+          }}
         />
       </div>
     )

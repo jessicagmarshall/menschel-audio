@@ -13,7 +13,8 @@ app.listen(3003, function () {
 
 app.get('/audio', function (req, res) {
   let fileId = req.query.id
-  let file = '../audio/testfile' + fileId + '.wav'
+  // let file = '../audio/testfile' + fileId + '.wav'
+  let file = '../audio/testfile0.wav'
   fs.access(file, fs.constants.F_OK, (err) => {
     console.log(`${fileId} ${err ? 'does not exist' : 'exists'}`)
     if (!err) {
