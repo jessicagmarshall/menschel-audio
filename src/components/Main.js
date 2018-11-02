@@ -2,32 +2,9 @@ import React, { Component } from 'react'
 import ReactTable from 'react-table'
 import Sound from 'react-sound'
 import 'react-table/react-table.css'
+import datasheet from '../data/data'
 
-const data = [{
-  input: 'socio-political motivation',
-  output: 'domestic terrorism'
-}, {
-  input: 'socio political motivation',
-  output: 'techno-utopia'
-}, {
-  input: 'lalala',
-  output: 'dummy data'
-}, {
-  input: 'dummy data',
-  output: 'lalala'
-}, {
-  input: 'socio political motivation',
-  output: 'techno-utopia'
-}, {
-  input: 'socio political motivation',
-  output: 'techno-utopia'
-}, {
-  input: 'socio political motivation',
-  output: 'techno-utopia'
-}, {
-  input: 'socio political motivation',
-  output: 'techno-utopia'
-}]
+const data = datasheet
 
 const columns = [{
   Header: 'Input Tag',
@@ -64,7 +41,6 @@ class Main extends Component {
     this.setState({rowIndex: nextRow,
       rowContent: {input: data[nextRow].input, output: data[nextRow].output},
       audioUrl: 'http://localhost:3003/audio?id=' + nextRow
-      // audioUrl: '../audio/testfile' + nextRow + '.wav'
     })
   }
 
@@ -92,7 +68,8 @@ class Main extends Component {
           columns={columns}
           showPagination={false}
           sortable={false}
-          minRows={0}
+          loadingText={null}
+          defaultPageSize={data.length + 1}
           getTdProps={(state, rowInfo, column, instance) => {
             if (typeof rowInfo !== 'undefined') {
               return {
@@ -117,7 +94,8 @@ class Main extends Component {
           getTheadThProps={this.injectThProps}
           showPagination={false}
           sortable={false}
-          minRows={0}
+          minRows={1}
+          loadingText={null}
           style={{position: 'fixed', width: '100%', backgroundColor: 'yellow', bottom: 0, height: 35}}
         />
       </div>
