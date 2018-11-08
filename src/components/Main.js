@@ -2,9 +2,7 @@ import React, { Component } from 'react'
 import ReactTable from 'react-table'
 import Sound from 'react-sound'
 import 'react-table/react-table.css'
-import datasheet from '../data/data'
-
-const data = datasheet
+import data from '../data/data'
 
 const columns = [{
   Header: 'Input Tag',
@@ -37,12 +35,28 @@ class Main extends Component {
   generateSet (input) {
     let nextRow
     input === undefined
-      ? nextRow = this.getRandomInt(0, data.length)
+      ? nextRow = this.getNextIndex()
       : nextRow = input
     this.setState({rowIndex: nextRow,
       rowContent: {input: data[nextRow].input, output: data[nextRow].output, id: data[nextRow].audio},
       audioUrl: 'http://localhost:3003/audio?id=' + nextRow
     })
+  }
+
+  getNextIndex () {
+    let indexArray = []
+    let outputTag
+    this.state.rowContent.output === ''
+      ? outputTag = this.getRandomInt(0, 5)
+      : outputTag = this.state.rowContent.output
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].input === outputTag) {
+        console.log(i, data[i].input, outputTag)
+        indexArray.push(i)
+      }
+    }
+    let nextIndex = this.getRandomInt(0, indexArray.length)
+    return indexArray[nextIndex]
   }
 
   getRandomInt (min, max) {
