@@ -1,3 +1,5 @@
+/* global fetch */
+
 import React, { Component } from 'react'
 import ReactTable from 'react-table'
 import Sound from 'react-sound'
@@ -22,7 +24,9 @@ class Main extends Component {
       rowContent: {input: '', output: '', id: ''},
       audio: '',
       paused: false,
-      tagList: [0, 1, 2, 3, 4, 5] // eventually replace this with yonatan's actual tags
+      tagList: [0, 1, 2, 3, 4, 5], // eventually replace this with yonatan's actual tags
+      flashing: false, // is this the last n seconds of the clip?
+      rowBlue: false
     }
     this.injectThProps = this.injectThProps.bind(this)
     this.generateSet = this.generateSet.bind(this)
@@ -38,10 +42,18 @@ class Main extends Component {
     input === undefined
       ? nextRow = this.getNextIndex()
       : nextRow = input
-    this.setState({rowIndex: nextRow,
-      rowContent: {input: data[nextRow].input, output: data[nextRow].output, id: data[nextRow].audio},
-      audioUrl: 'http://localhost:3003/audio?id=' + nextRow
-    })
+    fetch('http://localhost:3003/audioDuration?id=' + nextRow)
+      .then(res => {
+        res.json()
+          .then(res => {
+            this.setState({
+              duration: res.duration,
+              rowIndex: nextRow,
+              rowContent: {input: data[nextRow].input, output: data[nextRow].output, id: data[nextRow].audio},
+              audioUrl: 'http://localhost:3003/audio?id=' + nextRow
+            })
+          })
+      })
   }
 
   getNextIndex () {
@@ -80,7 +92,7 @@ class Main extends Component {
   render () {
     return (
       <div>
-        <Sound url={this.state.audioUrl}
+        <Sound url={this.state.audioUrl || ''}
           playStatus={this.state.paused ? Sound.status.PAUSED : Sound.status.PLAYING}
           onFinishedPlaying={this.generateSet}
         />
@@ -98,7 +110,7 @@ class Main extends Component {
                   this.generateSet(rowInfo.index)
                 },
                 style: {
-                  background: rowInfo.index === this.state.rowIndex ? 'yellow' : 'white'
+                  background: rowInfo.index !== this.state.rowIndex ? 'white' : this.state.flashing && this.state.rowBlue ? 'blue' : 'yellow'
                 }
               }
             } else {
@@ -118,7 +130,7 @@ class Main extends Component {
           sortable={false}
           minRows={1}
           loadingText={null}
-          style={{position: 'fixed', width: '100%', backgroundColor: 'yellow', bottom: 0, height: 60}}
+          style={{position: 'fixed', width: '100%', backgroundColor: this.state.flashing && this.state.rowBlue ? 'blue' : 'yellow', bottom: 0, height: 60}}
           getTdProps={(state, rowInfo, column, instance) => {
             return {
               onClick: (e, handleOriginal) => {

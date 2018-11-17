@@ -8250,6 +8250,11 @@ watchpack@^1.5.0:
     graceful-fs "^4.1.2"
     neo-async "^2.5.0"
 
+wav-file-info@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/wav-file-info/-/wav-file-info-0.0.8.tgz#680a75eb4c346b7e3f457e7902a7b1983506e4de"
+  integrity sha1-aAp160w0a34/RX55AqexmDUG5N4=
+
 wbuf@^1.1.0, wbuf@^1.7.2:
   version "1.7.3"
   resolved "https://registry.yarnpkg.com/wbuf/-/wbuf-1.7.3.tgz#c1d8d149316d3ea852848895cb6a0bfe887b87df"
