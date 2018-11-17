@@ -21,7 +21,8 @@ class Main extends Component {
     this.state = {
       rowContent: {input: '', output: '', id: ''},
       audio: '',
-      paused: false
+      paused: false,
+      tagList: [0, 1, 2, 3, 4, 5] // eventually replace this with yonatan's actual tags
     }
     this.injectThProps = this.injectThProps.bind(this)
     this.generateSet = this.generateSet.bind(this)
@@ -47,11 +48,10 @@ class Main extends Component {
     let indexArray = []
     let outputTag
     this.state.rowContent.output === ''
-      ? outputTag = this.getRandomInt(0, 5)
+      ? outputTag = this.state.tagList[this.getRandomInt(0, this.state.tagList.length)]
       : outputTag = this.state.rowContent.output
     for (let i = 0; i < data.length; i++) {
       if (data[i].input === outputTag) {
-        console.log(i, data[i].input, outputTag)
         indexArray.push(i)
       }
     }
