@@ -96,12 +96,12 @@ class Main extends Component {
   flashBar () {
     this.setState({rowBlue: !this.state.rowBlue, numFlashes: this.state.numFlashes + 1})
     let flashDuration
-    if (this.state.numFlashes < 39) {
+    if (this.state.numFlashes < 35) {
       this.state.numFlashes < 9
         ? flashDuration = this.state.flashingTime / 20 // 8 flashes at 1/20 of the time
         : this.state.numFlashes < 25
           ? flashDuration = this.state.flashingTime / 40 // 16 flashes at 1/40 of the time
-          : flashDuration = this.state.flashingTime / 80 // 14 flashes at 1/80 of the time
+          : flashDuration = this.state.flashingTime / 80 // 10 flashes at 1/80 of the time
       setTimeout(this.flashBar,
         1000 * flashDuration
       )
