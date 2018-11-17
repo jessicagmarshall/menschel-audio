@@ -4,6 +4,7 @@
 !/node_modules/
 /node_modules/*
 !/node_modules/react-sound/
+!/node_modules/soundmanager2/
 server/node_modules
 /.pnp
 .pnp.js

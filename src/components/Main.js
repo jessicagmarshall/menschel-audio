@@ -26,11 +26,13 @@ class Main extends Component {
       paused: false,
       tagList: [0, 1, 2, 3, 4, 5], // eventually replace this with yonatan's actual tags
       flashing: false, // is this the last n seconds of the clip?
-      rowBlue: false
+      rowBlue: false,
+      flashingTime: 1 // how many seconds before the end should the bottom bar begin flashing
     }
     this.injectThProps = this.injectThProps.bind(this)
     this.generateSet = this.generateSet.bind(this)
     this.togglePaused = this.togglePaused.bind(this)
+    this.flashBar = this.flashBar.bind(this)
   }
 
   componentWillMount () {
@@ -54,6 +56,7 @@ class Main extends Component {
             })
           })
       })
+    setTimeout(() => this.flashBar, 1000 * (this.state.duration - this.state.flashingTime)) // change
   }
 
   getNextIndex () {
@@ -87,6 +90,10 @@ class Main extends Component {
     this.state.paused
       ? this.setState({paused: false})
       : this.setState({paused: true})
+  }
+
+  flashBar () {
+
   }
 
   render () {
