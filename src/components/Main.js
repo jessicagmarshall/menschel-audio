@@ -26,12 +26,12 @@ class Main extends Component {
       paused: false,
       tagList: [0, 1, 2, 3, 4, 5], // eventually replace this with yonatan's actual tags
       rowBlue: false,
-      flashingTime: 1, // how many seconds before the end should the bottom bar begin flashing
+      flashingTime: 10, // how many seconds before the end should the bottom bar begin flashing
       numFlashes: 0
     }
     this.injectThProps = this.injectThProps.bind(this)
     this.generateSet = this.generateSet.bind(this)
-    this.togglePaused = this.togglePaused.bind(this)
+    // this.togglePaused = this.togglePaused.bind(this)
     this.flashBar = this.flashBar.bind(this)
   }
 
@@ -87,25 +87,32 @@ class Main extends Component {
     }
   }
 
-  togglePaused () {
-    this.state.paused
-      ? this.setState({paused: false})
-      : this.setState({paused: true})
-  }
+  // togglePaused () {
+  //   this.state.paused
+  //     ? this.setState({paused: false})
+  //     : this.setState({paused: true})
+  // }
 
   flashBar () {
     this.setState({rowBlue: !this.state.rowBlue, numFlashes: this.state.numFlashes + 1})
     let flashDuration
-    if (this.state.numFlashes < 15) {
-      this.state.numFlashes < 5
-        ? flashDuration = this.state.flashingTime / 2 / 5 // 1 second
-        : flashDuration = this.state.flashingTime / 2 / 10 // half second
-      setTimeout(
-        this.flashBar,
-        flashDuration
+    if (this.state.numFlashes < 39) {
+      this.state.numFlashes < 9
+        ? flashDuration = this.state.flashingTime / 20 // 8 flashes at 1/20 of the time
+        : this.state.numFlashes < 25
+          ? flashDuration = this.state.flashingTime / 40 // 16 flashes at 1/40 of the time
+          : flashDuration = this.state.flashingTime / 80 // 14 flashes at 1/80 of the time
+      setTimeout(this.flashBar,
+        1000 * flashDuration
       )
     } else {
-      this.setState({numFlashes: 0, rowBlue: false})
+      setTimeout(() => {
+        this.setState({numFlashes: 0, rowBlue: !this.state.rowBlue})
+      }, 1000 * this.state.flashingTime / 80)
+      console.log('this is where & when you\'d see description of getting the next stuff')
+      setTimeout(() => {
+        this.generateSet()
+      }, 5000)
     }
   }
 
@@ -114,7 +121,6 @@ class Main extends Component {
       <div>
         <Sound url={this.state.audioUrl || ''}
           playStatus={this.state.paused ? Sound.status.PAUSED : Sound.status.PLAYING}
-          onFinishedPlaying={this.generateSet}
         />
         <ReactTable
           data={data}
@@ -130,7 +136,8 @@ class Main extends Component {
                   this.generateSet(rowInfo.index)
                 },
                 style: {
-                  background: rowInfo.index !== this.state.rowIndex ? 'white' : this.state.rowBlue ? 'blue' : 'yellow'
+                  background: rowInfo.index !== this.state.rowIndex ? 'white' : this.state.rowBlue ? 'purple' : 'yellow',
+                  color: rowInfo.index !== this.state.rowIndex ? 'black' : this.state.rowBlue ? 'white' : 'black'
                 }
               }
             } else {
@@ -150,11 +157,17 @@ class Main extends Component {
           sortable={false}
           minRows={1}
           loadingText={null}
-          style={{position: 'fixed', width: '100%', backgroundColor: this.state.rowBlue ? 'blue' : 'yellow', bottom: 0, height: 60}}
+          style={{
+            position: 'fixed',
+            width: '100%',
+            backgroundColor: this.state.rowBlue ? 'purple' : 'yellow',
+            color: this.state.rowBlue ? 'white' : 'black',
+            bottom: 0,
+            height: 60}}
           getTdProps={(state, rowInfo, column, instance) => {
             return {
               onClick: (e, handleOriginal) => {
-                this.togglePaused()
+                // this.togglePaused()
               }
             }
           }}

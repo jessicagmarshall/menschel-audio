@@ -14,7 +14,8 @@ app.listen(3003, function () {
 
 app.get('/audio', function (req, res) {
   let fileId = req.query.id
-  let file = '../audio/testfile0.wav'
+  // let file = '../audio/testfile' + fileId + '.wav'
+  let file = '../audio/exampleClip.wav' // temporary until we have the clips
   fs.access(file, fs.constants.F_OK, (err) => {
     if (!err) {
       let rstream = fs.createReadStream(file)
@@ -29,7 +30,7 @@ app.get('/audio', function (req, res) {
 app.get('/audioDuration', function (req, res) {
   let fileId = req.query.id
   // let file = '../audio/testfile' + fileId + '.wav'
-  let file = '../audio/testfile0.wav'
+  let file = '../audio/exampleClip.wav' // temporary until we have the clips
   wavFileInfo.infoByFilename(file, function (err, info) {
     if (err) throw err
     res.setHeader('Content-Type', 'application/json')
