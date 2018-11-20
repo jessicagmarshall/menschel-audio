@@ -27,7 +27,8 @@ class Main extends Component {
       tagList: [0, 1, 2, 3, 4, 5], // eventually replace this with yonatan's actual tags
       rowBlue: false,
       flashingTime: 10, // how many seconds before the end should the bottom bar begin flashing
-      numFlashes: 0
+      numFlashes: 0,
+      nextRow: ''
     }
     this.injectThProps = this.injectThProps.bind(this)
     this.generateSet = this.generateSet.bind(this)
@@ -40,39 +41,62 @@ class Main extends Component {
   }
 
   generateSet (input) {
-    let nextRow
-    input === undefined
-      ? nextRow = this.getNextIndex()
-      : nextRow = input
-    fetch('http://localhost:3003/audioDuration?id=' + nextRow)
-      .then(res => {
-        res.json()
-          .then(res => {
-            this.setState({
-              duration: res.duration,
-              rowIndex: nextRow,
-              rowContent: {input: data[nextRow].input, output: data[nextRow].output, id: data[nextRow].audio},
-              audioUrl: 'http://localhost:3003/audio?id=' + nextRow
+    if (this.state.audioUrl !== '') {
+      this.setState({audioUrl: ''})
+    }
+    let nextRow, outcome
+    this.state.rowContent.id === ''
+      ? console.log('randomly generate an input tag for the first audio file')
+      : console.log('end of audio file', this.state.rowContent.id, 'with output tag', this.state.rowContent.output)
+    setTimeout(async () => {
+      outcome = await this.getNextIndex()
+      input === undefined
+        // there is a console.log in this.getNextIndex
+        ? nextRow = outcome[0]
+        : nextRow = input
+      setTimeout(() => {
+        console.log('collecting all audio files with input tag', data[nextRow].input, ':', outcome[1])
+        setTimeout(() => {
+          console.log('randomly select audio file', data[nextRow].audio, 'from list of files with input tag', data[nextRow].input, 'and fetch it from the server')
+          fetch('http://localhost:3003/audioDuration?id=' + nextRow)
+            .then(res => {
+              res.json()
+                .then(res => {
+                  setTimeout(() => {
+                    console.log('start playing clip', data[nextRow].audio)
+                    this.setState({
+                      duration: res.duration,
+                      rowIndex: nextRow,
+                      rowContent: {input: data[nextRow].input, output: data[nextRow].output, id: data[nextRow].audio},
+                      audioUrl: 'http://localhost:3003/audio?id=' + nextRow
+                    })
+                    // begin flashing this.state.flashingTime seconds before the end of the sound clip
+                    setTimeout(this.flashBar, 1000 * (this.state.duration - this.state.flashingTime))
+                  }, 4000)
+                })
             })
-            // begin flashing this.state.flashingTime seconds before the end of the sound clip
-            setTimeout(this.flashBar, 1000 * (this.state.duration - this.state.flashingTime))
-          })
-      })
+        }, 6000)
+      }, 4000)
+    }, 4000)
   }
 
-  getNextIndex () {
+  async getNextIndex () {
     let indexArray = []
+    let audioArray = []
     let outputTag
+    let nextIndex
     this.state.rowContent.output === ''
       ? outputTag = this.state.tagList[this.getRandomInt(0, this.state.tagList.length)]
       : outputTag = this.state.rowContent.output
     for (let i = 0; i < data.length; i++) {
       if (data[i].input === outputTag) {
         indexArray.push(i)
+        audioArray.push(data[i].audio)
       }
     }
-    let nextIndex = this.getRandomInt(0, indexArray.length)
-    return indexArray[nextIndex]
+    console.log('next input tag is', outputTag)
+    nextIndex = this.getRandomInt(0, indexArray.length)
+    return [indexArray[nextIndex], audioArray]
   }
 
   getRandomInt (min, max) {
@@ -109,10 +133,7 @@ class Main extends Component {
       setTimeout(() => {
         this.setState({numFlashes: 0, rowBlue: !this.state.rowBlue})
       }, 1000 * this.state.flashingTime / 80)
-      console.log('this is where & when you\'d see description of getting the next stuff')
-      setTimeout(() => {
-        this.generateSet()
-      }, 5000)
+      this.generateSet()
     }
   }
 

@@ -4,7 +4,16 @@
 !/node_modules/
 /node_modules/*
 !/node_modules/react-sound/
+/node_modules/react-sound/*
+!/node_modules/react-sound/lib/
 !/node_modules/soundmanager2/
+/node_modules/soundmanager2/*
+!/node_modules/soundmanager2/script/
+!/node_modules/react-dom/
+/node_modules/react-dom/*
+!/node_modules/react-dom/cjs/
+/node_modules/react-dom/cjs/*
+!/node_modules/react-dom/cjs/react-dom.development.js
 server/node_modules
 /.pnp
 .pnp.js
