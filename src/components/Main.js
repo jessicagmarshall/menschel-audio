@@ -58,7 +58,7 @@ class Main extends Component {
         console.log('collecting all audio files with input tag', data[nextRow].input, ':', outcome[1])
         setTimeout(() => {
           console.log('randomly select audio file', data[nextRow].audio, 'from list of files with input tag', data[nextRow].input, 'and fetch it from the server')
-          fetch('http://localhost:3003/audioDuration?id=' + nextRow)
+          fetch(document.URL + 'audioDuration?id=' + nextRow)
             .then(res => {
               res.json()
                 .then(res => {
@@ -68,7 +68,7 @@ class Main extends Component {
                       duration: res.duration,
                       rowIndex: nextRow,
                       rowContent: {input: data[nextRow].input, output: data[nextRow].output, id: data[nextRow].audio},
-                      audioUrl: 'http://localhost:3003/audio?id=' + nextRow
+                      audioUrl: document.URL + 'audio?id=' + nextRow
                     })
                     // begin flashing this.state.flashingTime seconds before the end of the sound clip
                     setTimeout(this.flashBar, 1000 * (this.state.duration - this.state.flashingTime))
