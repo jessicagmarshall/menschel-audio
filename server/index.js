@@ -13,6 +13,7 @@ app.listen(3003, function () {
 })
 
 app.get('/audio', function (req, res) {
+  console.log(req.get('host'))
   let fileId = req.query.id
   // let file = '../audio/testfile' + fileId + '.wav'
   let file = '../audio/exampleClip.wav' // temporary until we have the clips
