@@ -28,7 +28,8 @@ class Main extends Component {
       rowBlue: false,
       flashingTime: 10, // how many seconds before the end should the bottom bar begin flashing
       numFlashes: 0,
-      nextRow: ''
+      nextRow: '',
+      bgrnd: 'white'
     }
     this.injectThProps = this.injectThProps.bind(this)
     this.generateSet = this.generateSet.bind(this)
@@ -37,6 +38,9 @@ class Main extends Component {
   }
 
   componentWillMount () {
+    if (typeof window.orientation !== 'undefined' || navigator.userAgent.indexOf('IEMobile') !== -1) {
+      this.setState({bgrnd: 'black'})
+    }
     this.generateSet()
   }
 
@@ -58,7 +62,8 @@ class Main extends Component {
         console.log('collecting all audio files with input tag', data[nextRow].input, ':', outcome[1])
         setTimeout(() => {
           console.log('randomly select audio file', data[nextRow].audio, 'from list of files with input tag', data[nextRow].input, 'and fetch it from the server')
-          fetch('http://sentient-computer.local:3003/audioDuration?id=' + nextRow)
+          // fetch('http://sentient-computer.local:3003/audioDuration?id=' + nextRow)
+          fetch('http://localhost:3003/audioDuration?id=' + nextRow)
             .then(res => {
               res.json()
                 .then(res => {
@@ -68,7 +73,8 @@ class Main extends Component {
                       duration: res.duration,
                       rowIndex: nextRow,
                       rowContent: {input: data[nextRow].input, output: data[nextRow].output, id: data[nextRow].audio},
-                      audioUrl: 'http://sentient-computer.local:3003/audio?id=' + nextRow
+                      // audioUrl: 'http://sentient-computer.local:3003/audio?id=' + nextRow
+                      audioUrl: 'http://localhost:3003/audio?id=' + nextRow
                     })
                     // begin flashing this.state.flashingTime seconds before the end of the sound clip
                     setTimeout(this.flashBar, 1000 * (this.state.duration - this.state.flashingTime))
@@ -138,9 +144,8 @@ class Main extends Component {
   }
 
   render () {
-    console.log(document.URL.substr(0, document.URL.length - 5))
     return (
-      <div>
+      <div style={{backgroundColor: this.state.bgrnd}}>
         <Sound url={this.state.audioUrl || ''}
           playStatus={this.state.paused ? Sound.status.PAUSED : Sound.status.PLAYING}
         />

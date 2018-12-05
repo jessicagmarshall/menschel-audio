@@ -8,14 +8,15 @@ let app = express()
 
 app.use(cors())
 
-app.listen(0.0.0.0, function () {
+app.listen(3003, function () {
   console.log('listening on port 3003')
 })
 
 app.get('/audio', function (req, res) {
   console.log(req.get('host'))
   let fileId = req.query.id
-  let file = '../audio/testfile' + fileId + '.wav'
+  let file = '../audio/testfile0.wav'
+  // let file = '../audio/testfile' + fileId + '.wav'
   // let file = '../audio/exampleClip.wav' // temporary until we have the clips
   fs.access(file, fs.constants.F_OK, (err) => {
     if (!err) {
@@ -30,7 +31,8 @@ app.get('/audio', function (req, res) {
 
 app.get('/audioDuration', function (req, res) {
   let fileId = req.query.id
-  let file = '../audio/testfile' + fileId + '.wav'
+  let file = '../audio/testfile0.wav'
+  // let file = '../audio/testfile' + fileId + '.wav'
   // let file = '../audio/exampleClip.wav' // temporary until we have the clips
   wavFileInfo.infoByFilename(file, function (err, info) {
     if (err) throw err
