@@ -1,27 +1,14 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-!frontend/node_modules/
-frontend/node_modules/*
-!frontend/node_modules/react-sound/
-frontend/node_modules/react-sound/*
-!frontend/node_modules/react-sound/lib/
-!frontend/node_modules/soundmanager2/
-frontend/node_modules/soundmanager2/*
-!frontend/node_modules/soundmanager2/script/
-!frontend/node_modules/react-dom/
-frontend/node_modules/react-dom/*
-!frontend/node_modules/react-dom/cjs/
-frontend/node_modules/react-dom/cjs/*
-!frontend/node_modules/react-dom/cjs/react-dom.development.js
-server/node_modules
+*/node_modules
 /.pnp
 .pnp.js
 
 # testing
 /coverage
 
-# production 
+# production
 /build
 
 # misc
