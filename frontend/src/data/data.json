@@ -1,111 +1,282 @@
 [
   {
-    "input": 5,
-    "output": 0,
-    "audio": "quBjcCbP"
+    "input": "CATALONIA",
+    "output": "SPANISH POLITICS",
+    "audio": "AM.CAT0001"
   },
   {
-    "input": 2,
-    "output": 4,
-    "audio": "QxEXVDuc"
+    "input": "SPANISH POLITICS",
+    "output": "GOVERNANCE",
+    "audio": "AM.CAT0002"
   },
   {
-    "input": 5,
-    "output": 4,
-    "audio": "xPpUCJMr"
+    "input": "SPANISH POLITICS",
+    "output": "CATALONIA",
+    "audio": "AM.CAT0003"
   },
   {
-    "input": 4,
-    "output": 3,
-    "audio": "WQQinmTA"
+    "input": "SPANISH POLITICS",
+    "output": "CATALONIA",
+    "audio": "AM.CAT0004"
   },
   {
-    "input": 4,
-    "output": 2,
-    "audio": "bTXTRaLM"
+    "input": "ACCESSABILITY",
+    "output": "CATALONIA",
+    "audio": "AM.CAT0005"
   },
   {
-    "input": 5,
-    "output": 1,
-    "audio": "QXdVDtha"
+    "input": "SPANISH POLITICS",
+    "output": "(DE)CENTRALIZATION",
+    "audio": "AM.CAT0006"
   },
   {
-    "input": 0,
-    "output": 1,
-    "audio": "JoldxLRP"
+    "input": "CATALONIA",
+    "output": "(DE)CENTRALIZATION",
+    "audio": "AM.CAT0007"
   },
   {
-    "input": 1,
-    "output": 4,
-    "audio": "xCWLxhyw"
+    "input": "INDIFFERENCE",
+    "output": "CATALONIA",
+    "audio": "AM.CAT0008"
   },
   {
-    "input": 1,
-    "output": 0,
-    "audio": "pGQxbaeL"
+    "input": "CATALONIA",
+    "output": "MESH TECHNOLOGY",
+    "audio": "AM.CAT0009"
   },
   {
-    "input": 4,
-    "output": 1,
-    "audio": "unhusRMP"
+    "input": "SPANISH POLITICS",
+    "output": "ACCESSABILITY",
+    "audio": "AM.CAT0010"
   },
   {
-    "input": 4,
-    "output": 1,
-    "audio": "MqhjcvME"
+    "input": "ACCESSABILITY",
+    "output": "TECHNO-POLITICS",
+    "audio": "AM.CAT0011"
   },
   {
-    "input": 2,
-    "output": 4,
-    "audio": "IVPULtSY"
+    "input": "ACCESSABILITY",
+    "output": "TECHNO-POLITICS",
+    "audio": "AM.CAT0012"
   },
   {
-    "input": 3,
-    "output": 1,
-    "audio": "BGJSjYqt"
+    "input": "TECHNO-POLITICS",
+    "output": "CATALONIA",
+    "audio": "AM.CAT0013"
   },
   {
-    "input": 0,
-    "output": 1,
-    "audio": "dbaIdXuF"
+    "input": "CATALONIA",
+    "output": "TECHNO-POLITICS",
+    "audio": "AM.CAT0014"
   },
   {
-    "input": 5,
-    "output": 2,
-    "audio": "JDHuhubs"
+    "input": "MESH TECHNOLOGY",
+    "output": "GOVERNANCE",
+    "audio": "AM.CAT0015"
   },
   {
-    "input": 5,
-    "output": 0,
-    "audio": "OMgXoDEm"
+    "input": "CATALONIA",
+    "output": "MESH TECHNOLOGY",
+    "audio": "AM.CAT0016"
   },
   {
-    "input": 5,
-    "output": 2,
-    "audio": "llWWvsIS"
+    "input": "SPANISH POLITICS",
+    "output": "CATALONIA",
+    "audio": "AM.CAT0017"
   },
   {
-    "input": 1,
-    "output": 3,
-    "audio": "iEBGdRFP"
+    "input": "GOVERNANCE",
+    "output": "SPANISH POLITICS",
+    "audio": "AM.CAT0018"
   },
   {
-    "input": 1,
-    "output": 3,
-    "audio": "ZbvModGd"
+    "input": "CATALONIA",
+    "output": "SPANISH POLITICS",
+    "audio": "AM.CAT0019"
   },
   {
-    "input": 0,
-    "output": 4,
-    "audio": "UjSHMOOi"
+    "input": "CATALONIA",
+    "output": "TECHNO-POLITICS",
+    "audio": "AM.CAT0020"
   },
   {
-    "input": 4,
-    "output": 2,
-    "audio": "RmvPzVmD"
+    "input": "TECHNO-POLITICS",
+    "output": "INDIFFERENCE",
+    "audio": "AM.CAT0021"
   },
   {
-    "input": 5,
-    "output": 3,
-    "audio": "MTNOAnsL"
-  }]
+    "input": "TECHNO-POLITICS",
+    "output": "INDIFFERENCE",
+    "audio": "AM.CAT0022"
+  },
+  {
+    "input": "CATALONIA",
+    "output": "SPANISH POLITICS",
+    "audio": "AM.CAT0023"
+  },
+  {
+    "input": "CATALONIA",
+    "output": "SPANISH POLITICS",
+    "audio": "AM.CAT0024"
+  },
+  {
+    "input": "MESH TECHNOLOGY",
+    "output": "(DE)CENTRALIZATION",
+    "audio": "AM.CAT0025"
+  },
+  {
+    "input": "MESH TECHNOLOGY",
+    "output": "SPANISH POLITICS",
+    "audio": "AM.CAT0026"
+  },
+  {
+    "input": "TECHNO-POLITICS",
+    "output": "SPANISH POLITICS",
+    "audio": "AM.CAT0027"
+  },
+  {
+    "input": "ACCESSABILITY",
+    "output": "SPANISH POLITICS",
+    "audio": "AM.CAT0028"
+  },
+  {
+    "input": "TECHNO-POLITICS",
+    "output": "SPANISH POLITICS",
+    "audio": "AM.CAT0029"
+  },
+  {
+    "input": "TECHNO-POLITICS",
+    "output": "SPANISH POLITICS",
+    "audio": "AM.CAT0030"
+  },
+  {
+    "input": "SPANISH POLITICS",
+    "output": "SPANISH POLITICS",
+    "audio": "AM.CAT0031"
+  },
+  {
+    "input": "TECHNO-POLITICS",
+    "output": "ACCESSABILITY",
+    "audio": "AM.CAT0032"
+  },
+  {
+    "input": "GOVERNANCE",
+    "output": "(DE)CENTRALIZATION",
+    "audio": "AM.CAT0033"
+  },
+  {
+    "input": "CATALONIA",
+    "output": "SPANISH POLITICS",
+    "audio": "AM.CAT0034"
+  },
+  {
+    "input": "CATALONIA",
+    "output": "(DE)CENTRALIZATION",
+    "audio": "AM.CAT0035"
+  },
+  {
+    "input": "TECHNO-POLITICS",
+    "output": "SPANISH POLITICS",
+    "audio": "AM.CAT0036"
+  },
+  {
+    "input": "MESH TECHNOLOGY",
+    "output": "MESH TECHNOLOGY",
+    "audio": "RB.CAT.0001"
+  },
+  {
+    "input": "MESH TECHNOLOGY",
+    "output": "ACCESSABILITY",
+    "audio": "RB.CAT.0002"
+  },
+  {
+    "input": "MESH TECHNOLOGY",
+    "output": "TECHNO-POLITICS",
+    "audio": "RB.CAT.0003"
+  },
+  {
+    "input": "ACCESSABILITY",
+    "output": "MESH TECHNOLOGY",
+    "audio": "RB.CAT.0004"
+  },
+  {
+    "input": "TECHNO-POLITICS",
+    "output": "(DE)CENTRALIZATION",
+    "audio": "RB.CAT.0005"
+  },
+  {
+    "input": "MESH TECHNOLOGY",
+    "output": "GOVERNANCE",
+    "audio": "RB.CAT.0006"
+  },
+  {
+    "input": "(DE)CENTRALIZATION",
+    "output": "GOVERNANCE",
+    "audio": "RB.CAT.0009"
+  },
+  {
+    "input": "TECHNO-POLITICS",
+    "output": "GOVERNANCE",
+    "audio": "RB.CAT.0010"
+  },
+  {
+    "input": "MESH TECHNOLOGY",
+    "output": "GOVERNANCE",
+    "audio": "RB.CAT.0011"
+  },
+  {
+    "input": "TECHNO-POLITICS",
+    "output": "SPANISH POLITICS",
+    "audio": "RB.CAT.0012"
+  },
+  {
+    "input": "SPANISH POLITICS",
+    "output": "SPANISH POLITICS",
+    "audio": "RB.CAT.0013"
+  },
+  {
+    "input": "TECHNO-POLITICS",
+    "output": "TECHNO-POLITICS",
+    "audio": "RB.CAT.0014"
+  },
+  {
+    "input": "TECHNO-POLITICS",
+    "output": "TECHNO-POLITICS",
+    "audio": "RB.CAT.0015"
+  },
+  {
+    "input": "ACCESSABILITY",
+    "output": "ACCESSABILITY",
+    "audio": "RB.CAT.0016"
+  },
+  {
+    "input": "(DE)CENTRALIZATION",
+    "output": "ACCESSABILITY",
+    "audio": "RB.CAT.0017"
+  },
+  {
+    "input": "MESH TECHNOLOGY",
+    "output": "TECHNO-POLITICS",
+    "audio": "RB.CAT.0018"
+  },
+  {
+    "input": "MESH TECHNOLOGY",
+    "output": "(DE)CENTRALIZATION",
+    "audio": "RB.CAT.0019"
+  },
+  {
+    "input": "TECHNO-POLITICS",
+    "output": "SPANISH POLITICS",
+    "audio": "RB.CAT.0020"
+  },
+  {
+    "input": "TECHNO-POLITICS",
+    "output": "GOVERNANCE",
+    "audio": "RB.CAT.0021"
+  },
+  {
+    "input": "MESH TECHNOLOGY",
+    "output": "(DE)CENTRALIZATION",
+    "audio": "RB.CAT.0022"
+  }
+]
