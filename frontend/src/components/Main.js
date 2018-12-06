@@ -72,7 +72,6 @@ class Main extends Component {
     fetch('http://server.local:3003/audioDuration?id=' + data[nextRow].audio)
     // fetch('http://localhost:3003/audioDuration?id=' + data[nextRow].audio)
       .then(res => {
-        console.log(res)
         res.json()
           .then(res => {
             // setTimeout(() => {
