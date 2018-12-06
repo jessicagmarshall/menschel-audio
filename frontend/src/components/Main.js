@@ -24,7 +24,13 @@ class Main extends Component {
       rowContent: {input: '', output: '', id: ''},
       audio: '',
       paused: false,
-      tagList: [0, 1, 2, 3, 4, 5], // eventually replace this with yonatan's actual tags
+      tagList: [
+        'TECHNO-POLITICS',
+        'ACCESSABILITY',
+        '(DE)CENTRALIZATION',
+        'MESH TECHNOLOGY',
+        'SPANISH POLITICS',
+        'GOVERNANCE'],
       rowBlue: false,
       flashingTime: 10, // how many seconds before the end should the bottom bar begin flashing
       numFlashes: 0,
@@ -54,37 +60,37 @@ class Main extends Component {
       ? console.log('randomly generate an input tag for the first audio file')
       : console.log('end of audio file', this.state.rowContent.id, 'with output tag', this.state.rowContent.output)
     // setTimeout(async () => {
-      outcome = this.getNextIndex()
-      input === undefined
-        // there is a console.log in this.getNextIndex
-        ? nextRow = outcome[0]
-        : nextRow = input
-      // setTimeout(() => {
-        console.log('collecting all audio files with input tag', data[nextRow].input, ':', outcome[1])
-        // setTimeout(() => {
-          console.log('randomly select audio file', data[nextRow].audio, 'from list of files with input tag', data[nextRow].input, 'and fetch it from the server')
-          fetch('http://server.local:3003/audioDuration?id=' + nextRow)
-          // fetch('http://localhost:3003/audioDuration?id=' + nextRow)
-            .then(res => {
-              res.json()
-                .then(res => {
-                  // setTimeout(() => {
-                    console.log('start playing clip', data[nextRow].audio)
-                    this.setState({
-                      duration: res.duration,
-                      rowIndex: nextRow,
-                      rowContent: {input: data[nextRow].input, output: data[nextRow].output, id: data[nextRow].audio},
-                      audioUrl: 'http://server.local:3003/audio?id=' + nextRow
-                      // audioUrl: 'http://localhost:3003/audio?id=' + nextRow
-                    })
-                    // begin flashing this.state.flashingTime seconds before the end of the sound clip
-                    this.flashbarTimeout = setTimeout(
-                      this.flashBar
-                      , 1000 * (this.state.duration - this.state.flashingTime))
-                  // }, 4000)
-                })
+    outcome = this.getNextIndex()
+    input === undefined
+      // there is a console.log in this.getNextIndex
+      ? nextRow = outcome[0]
+      : nextRow = input
+    // setTimeout(() => {
+    console.log('collecting all audio files with input tag', data[nextRow].input, ':', outcome[1])
+    // setTimeout(() => {
+    console.log('randomly select audio file', data[nextRow].audio, 'from list of files with input tag', data[nextRow].input, 'and fetch it from the server')
+    fetch('http://server.local:3003/audioDuration?id=' + nextRow)
+    // fetch('http://localhost:3003/audioDuration?id=' + nextRow)
+      .then(res => {
+        res.json()
+          .then(res => {
+            // setTimeout(() => {
+            console.log('start playing clip', data[nextRow].audio)
+            this.setState({
+              duration: res.duration,
+              rowIndex: nextRow,
+              rowContent: {input: data[nextRow].input, output: data[nextRow].output, id: data[nextRow].audio},
+              audioUrl: 'http://server.local:3003/audio?id=' + nextRow
+              // audioUrl: 'http://localhost:3003/audio?id=' + nextRow
             })
-        // }, 6000)
+            // begin flashing this.state.flashingTime seconds before the end of the sound clip
+            this.flashbarTimeout = setTimeout(
+              this.flashBar
+              , 1000 * (this.state.duration - this.state.flashingTime))
+            // }, 4000)
+          })
+      })
+      // }, 6000)
       // }, 4000)
     // }, 4000)
   }
