@@ -154,8 +154,8 @@ class Main extends Component {
       <div>
         {
           this.state.bgrnd === 'black'
-            ? <p style={{backgroundColor: 'black', color: 'white'}}>
-              get this later
+            ? <p style={{backgroundColor: 'black', color: 'white', textAlign: 'center'}}>
+               What you are seeing is a simulation. To hear sound, please proceed to a station.
             </p>
             : null
         }
