@@ -30,7 +30,8 @@ class Main extends Component {
         '(DE)CENTRALIZATION',
         'MESH TECHNOLOGY',
         'SPANISH POLITICS',
-        'GOVERNANCE'],
+        'GOVERNANCE',
+        'CATALONIA'],
       rowBlue: false,
       flashingTime: 10, // how many seconds before the end should the bottom bar begin flashing
       numFlashes: 0,
