@@ -13,6 +13,7 @@ app.listen(3003, function () {
 
 app.get('/audio', function (req, res) {
   let fileId = req.query.id
+  console.log(fileId)
   let file = '../audio/' + fileId + '.wav'
   fs.access(file, fs.constants.F_OK, (err) => {
     if (!err) {
@@ -27,6 +28,7 @@ app.get('/audio', function (req, res) {
 
 app.get('/audioDuration', function (req, res) {
   let fileId = req.query.id
+  console.log(fileId)
   let file = '../audio/' + fileId + '.wav'
   wavFileInfo.infoByFilename(file, function (err, info) {
     if (err) throw err
