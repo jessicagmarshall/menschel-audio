@@ -28,6 +28,7 @@ class Main extends Component {
       rowBlue: false,
       flashingTime: 10, // how many seconds before the end should the bottom bar begin flashing
       numFlashes: 0,
+      isFlashing: false,
       nextRow: '',
       bgrnd: 'white'
     }
@@ -52,41 +53,43 @@ class Main extends Component {
     this.state.rowContent.id === ''
       ? console.log('randomly generate an input tag for the first audio file')
       : console.log('end of audio file', this.state.rowContent.id, 'with output tag', this.state.rowContent.output)
-    setTimeout(async () => {
-      outcome = await this.getNextIndex()
+    // setTimeout(async () => {
+      outcome = this.getNextIndex()
       input === undefined
         // there is a console.log in this.getNextIndex
         ? nextRow = outcome[0]
         : nextRow = input
-      setTimeout(() => {
+      // setTimeout(() => {
         console.log('collecting all audio files with input tag', data[nextRow].input, ':', outcome[1])
-        setTimeout(() => {
+        // setTimeout(() => {
           console.log('randomly select audio file', data[nextRow].audio, 'from list of files with input tag', data[nextRow].input, 'and fetch it from the server')
-          // fetch('http://sentient-computer.local:3003/audioDuration?id=' + nextRow)
-          fetch('http://localhost:3003/audioDuration?id=' + nextRow)
+          fetch('http://server.local:3003/audioDuration?id=' + nextRow)
+          // fetch('http://localhost:3003/audioDuration?id=' + nextRow)
             .then(res => {
               res.json()
                 .then(res => {
-                  setTimeout(() => {
+                  // setTimeout(() => {
                     console.log('start playing clip', data[nextRow].audio)
                     this.setState({
                       duration: res.duration,
                       rowIndex: nextRow,
                       rowContent: {input: data[nextRow].input, output: data[nextRow].output, id: data[nextRow].audio},
-                      // audioUrl: 'http://sentient-computer.local:3003/audio?id=' + nextRow
-                      audioUrl: 'http://localhost:3003/audio?id=' + nextRow
+                      audioUrl: 'http://server.local:3003/audio?id=' + nextRow
+                      // audioUrl: 'http://localhost:3003/audio?id=' + nextRow
                     })
                     // begin flashing this.state.flashingTime seconds before the end of the sound clip
-                    setTimeout(this.flashBar, 1000 * (this.state.duration - this.state.flashingTime))
-                  }, 4000)
+                    this.flashbarTimeout = setTimeout(
+                      this.flashBar
+                      , 1000 * (this.state.duration - this.state.flashingTime))
+                  // }, 4000)
                 })
             })
-        }, 6000)
-      }, 4000)
-    }, 4000)
+        // }, 6000)
+      // }, 4000)
+    // }, 4000)
   }
 
-  async getNextIndex () {
+  getNextIndex () {
     let indexArray = []
     let audioArray = []
     let outputTag
@@ -124,7 +127,7 @@ class Main extends Component {
   // }
 
   flashBar () {
-    this.setState({rowBlue: !this.state.rowBlue, numFlashes: this.state.numFlashes + 1})
+    this.setState({rowBlue: !this.state.rowBlue, numFlashes: this.state.numFlashes + 1, isFlashing: true})
     let flashDuration
     if (this.state.numFlashes < 35) {
       this.state.numFlashes < 9
@@ -132,20 +135,30 @@ class Main extends Component {
         : this.state.numFlashes < 25
           ? flashDuration = this.state.flashingTime / 40 // 16 flashes at 1/40 of the time
           : flashDuration = this.state.flashingTime / 80 // 10 flashes at 1/80 of the time
-      setTimeout(this.flashBar,
+      setTimeout(
+        this.flashBar
+        ,
         1000 * flashDuration
       )
     } else {
       setTimeout(() => {
         this.setState({numFlashes: 0, rowBlue: !this.state.rowBlue})
       }, 1000 * this.state.flashingTime / 80)
+      this.setState({isFlashing: false})
       this.generateSet()
     }
   }
 
   render () {
     return (
-      <div style={{backgroundColor: this.state.bgrnd}}>
+      <div>
+        {
+          this.state.bgrnd === 'black'
+            ? <p style={{backgroundColor: 'black', color: 'white'}}>
+              get this later
+            </p>
+            : null
+        }
         <Sound url={this.state.audioUrl || ''}
           playStatus={this.state.paused ? Sound.status.PAUSED : Sound.status.PLAYING}
         />
@@ -160,7 +173,10 @@ class Main extends Component {
             if (typeof rowInfo !== 'undefined') {
               return {
                 onClick: (e, handleOriginal) => {
-                  this.generateSet(rowInfo.index)
+                  if (!this.state.isFlashing) {
+                    clearTimeout(this.flashbarTimeout)
+                    this.generateSet(rowInfo.index)
+                  }
                 },
                 style: {
                   background: rowInfo.index !== this.state.rowIndex ? 'white' : this.state.rowBlue ? 'purple' : 'yellow',
