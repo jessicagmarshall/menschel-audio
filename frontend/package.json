@@ -1,12 +1,13 @@
 {
   "name": "menschel-fe",
   "version": "0.1.0",
-  
-	"private": true,
+  "private": true,
   "dependencies": {
     "babel-plugin-dynamic-import-node": "^2.2.0",
     "express": "^4.16.4",
+    "p5": "^0.7.2",
     "react": "^16.6.0",
+    "react-bootstrap": "^0.32.4",
     "react-dom": "^16.6.0",
     "react-scripts": "2.1.1",
     "react-sound": "^1.2.0",

@@ -3,18 +3,19 @@
 import React, { Component } from 'react'
 import ReactTable from 'react-table'
 import Sound from 'react-sound'
+import { Modal } from 'react-bootstrap'
 import 'react-table/react-table.css'
 import data from '../data/data'
 
 const columns = [{
+  Header: 'Audio ID',
+  accessor: 'audio'
+}, {
   Header: 'Input Tag',
   accessor: 'input'
 }, {
   Header: 'Output Tag',
   accessor: 'output'
-}, {
-  Header: 'Audio ID',
-  accessor: 'audio'
 }]
 
 class Main extends Component {
@@ -37,7 +38,9 @@ class Main extends Component {
       numFlashes: 0,
       isFlashing: false,
       nextRow: '',
-      bgrnd: 'white'
+      isMobile: false,
+      modalOpen: true,
+      visOn: true
     }
     this.injectThProps = this.injectThProps.bind(this)
     this.generateSet = this.generateSet.bind(this)
@@ -47,7 +50,7 @@ class Main extends Component {
 
   componentWillMount () {
     if (typeof window.orientation !== 'undefined' || navigator.userAgent.indexOf('IEMobile') !== -1) {
-      this.setState({bgrnd: 'black'})
+      this.setState({isMobile: true})
     }
     this.generateSet()
   }
@@ -159,12 +162,20 @@ class Main extends Component {
   render () {
     return (
       <div>
-        {
-          this.state.bgrnd === 'black'
-            ? <p style={{backgroundColor: 'black', color: 'white', textAlign: 'center'}}>
+        { this.state.isMobile
+          ? <p style={{backgroundColor: 'black', color: 'white', textAlign: 'center'}}>
                What you are seeing is a simulation. To hear sound, please proceed to a station.
-            </p>
-            : null
+          </p>
+          : null}
+        { !this.state.isMobile && this.state.visOn
+          ? <Modal show={this.state.modalOpen} onHide={this.handleClose}>
+            <Modal.Body>
+              <p style={{minHeight: 300, minWidth: 300, textAlign: 'center'}}>
+              This is where the visualizations will go.
+              </p>
+            </Modal.Body>
+          </Modal>
+          : null
         }
         <Sound url={this.state.audioUrl || ''}
           playStatus={this.state.paused ? Sound.status.PAUSED : Sound.status.PLAYING}
