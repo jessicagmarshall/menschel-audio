@@ -186,7 +186,7 @@ class Main extends Component {
           sortable={false}
           loadingText={null}
           defaultPageSize={data.length + 2}
-          style={{cursor: 'pointer'}}
+          style={{cursor: this.state.isFlashing ? 'auto' : 'pointer'}}
           getTdProps={(state, rowInfo, column, instance) => {
             if (typeof rowInfo !== 'undefined') {
               return {
