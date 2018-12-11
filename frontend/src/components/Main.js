@@ -7,7 +7,7 @@ import { Modal } from 'react-bootstrap'
 import 'react-table/react-table.css'
 import data from '../data/data'
 
-const columns = [{
+let columns = [{
   Header: 'Audio ID',
   accessor: 'audio'
 }, {
@@ -39,7 +39,6 @@ class Main extends Component {
       isFlashing: false,
       nextRow: '',
       isMobile: false,
-      modalOpen: true,
       visOn: true
     }
     this.injectThProps = this.injectThProps.bind(this)
@@ -73,8 +72,8 @@ class Main extends Component {
     console.log('collecting all audio files with input tag', data[nextRow].input, ':', outcome[1])
     // setTimeout(() => {
     console.log('randomly select audio file', data[nextRow].audio, 'from list of files with input tag', data[nextRow].input, 'and fetch it from the server')
-    fetch('http://server.local:3003/audioDuration?id=' + data[nextRow].audio)
-    // fetch('http://localhost:3003/audioDuration?id=' + data[nextRow].audio)
+    // fetch('http://server.local:3003/audioDuration?id=' + data[nextRow].audio)
+    fetch('http://localhost:3003/audioDuration?id=' + data[nextRow].audio)
       .then(res => {
         res.json()
           .then(res => {
@@ -84,8 +83,8 @@ class Main extends Component {
               duration: res.duration,
               rowIndex: nextRow,
               rowContent: {input: data[nextRow].input, output: data[nextRow].output, id: data[nextRow].audio},
-              audioUrl: 'http://server.local:3003/audio?id=' + data[nextRow].audio
-              // audioUrl: 'http://localhost:3003/audio?id=' + data[nextRow].audio
+              // audioUrl: 'http://server.local:3003/audio?id=' + data[nextRow].audio
+              audioUrl: 'http://localhost:3003/audio?id=' + data[nextRow].audio
             })
             // begin flashing this.state.flashingTime seconds before the end of the sound clip
             this.flashbarTimeout = setTimeout(
@@ -168,7 +167,7 @@ class Main extends Component {
           </p>
           : null}
         { !this.state.isMobile && this.state.visOn
-          ? <Modal show={this.state.modalOpen} onHide={this.handleClose}>
+          ? <Modal show={this.state.visOn} onHide={() => { this.setState({visOn: false}) }}>
             <Modal.Body>
               <p style={{minHeight: 300, minWidth: 300, textAlign: 'center'}}>
               This is where the visualizations will go.
@@ -210,7 +209,7 @@ class Main extends Component {
           data={[{
             input: this.state.rowContent.input,
             output: this.state.rowContent.output,
-            audio: this.state.rowContent.id
+            audio: this.state.rowContent.id,
           }]}
           columns={columns}
           getTheadThProps={this.injectThProps}
@@ -228,11 +227,26 @@ class Main extends Component {
           getTdProps={(state, rowInfo, column, instance) => {
             return {
               onClick: (e, handleOriginal) => {
-                // this.togglePaused()
+                // this.setState({visOn: !this.state.visOn})
               }
             }
           }}
         />
+        <div style={{
+          bottom: 0,
+          right: 0,
+          height: 60,
+          position: 'fixed',
+          backgroundColor: this.state.visOn ? 'black' : 'white',
+          color: this.state.visOn ? 'white' : 'black',
+          textAlign: 'center',
+          paddingTop: 6,
+          borderTop: '1px solid lightgray',
+          width: '3%'}}
+          onClick={() => this.setState({visOn: !this.state.visOn})}
+        >
+          {this.state.visOn ? 'ON' : 'OFF'}
+        </div>
       </div>
     )
   }
