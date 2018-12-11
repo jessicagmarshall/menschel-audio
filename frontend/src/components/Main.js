@@ -186,6 +186,7 @@ class Main extends Component {
           sortable={false}
           loadingText={null}
           defaultPageSize={data.length + 2}
+          style={{cursor: 'pointer'}}
           getTdProps={(state, rowInfo, column, instance) => {
             if (typeof rowInfo !== 'undefined') {
               return {
@@ -209,7 +210,7 @@ class Main extends Component {
           data={[{
             input: this.state.rowContent.input,
             output: this.state.rowContent.output,
-            audio: this.state.rowContent.id,
+            audio: this.state.rowContent.id
           }]}
           columns={columns}
           getTheadThProps={this.injectThProps}
@@ -232,17 +233,19 @@ class Main extends Component {
             }
           }}
         />
-        <div style={{
-          bottom: 0,
-          right: 0,
-          height: 60,
-          position: 'fixed',
-          backgroundColor: this.state.visOn ? 'black' : 'white',
-          color: this.state.visOn ? 'white' : 'black',
-          textAlign: 'center',
-          paddingTop: 6,
-          borderTop: '1px solid lightgray',
-          width: '3%'}}
+        <div
+          style={{
+            bottom: 0,
+            right: 0,
+            height: 60,
+            position: 'fixed',
+            backgroundColor: this.state.visOn ? 'black' : 'white',
+            color: this.state.visOn ? 'white' : 'black',
+            textAlign: 'center',
+            paddingTop: 6,
+            borderTop: '1px solid lightgray',
+            cursor: 'pointer',
+            width: '3%'}}
           onClick={() => this.setState({visOn: !this.state.visOn})}
         >
           {this.state.visOn ? 'ON' : 'OFF'}
