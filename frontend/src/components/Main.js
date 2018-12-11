@@ -186,7 +186,7 @@ class Main extends Component {
           sortable={false}
           loadingText={null}
           defaultPageSize={data.length + 2}
-          style={{cursor: this.state.isFlashing ? 'auto' : 'pointer'}}
+          style={{cursor: this.state.isFlashing ? 'auto' : 'pointer', textAlign: 'center'}}
           getTdProps={(state, rowInfo, column, instance) => {
             if (typeof rowInfo !== 'undefined') {
               return {
@@ -224,7 +224,9 @@ class Main extends Component {
             backgroundColor: this.state.rowBlue ? 'purple' : 'yellow',
             color: this.state.rowBlue ? 'white' : 'black',
             bottom: 0,
-            height: 60}}
+            height: 60,
+            textAlign: 'center'
+          }}
           getTdProps={(state, rowInfo, column, instance) => {
             return {
               onClick: (e, handleOriginal) => {
