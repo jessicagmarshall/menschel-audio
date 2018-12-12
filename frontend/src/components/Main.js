@@ -4,8 +4,10 @@ import React, { Component } from 'react'
 import ReactTable from 'react-table'
 import Sound from 'react-sound'
 import { Modal } from 'react-bootstrap'
+import P5Wrapper from 'react-p5-wrapper'
 import 'react-table/react-table.css'
 import data from '../data/data'
+import sketch from '../sketches/sketch'
 
 let columns = [{
   Header: 'Audio ID',
@@ -169,9 +171,7 @@ class Main extends Component {
         { !this.state.isMobile && this.state.visOn
           ? <Modal show={this.state.visOn} onHide={() => { this.setState({visOn: false}) }}>
             <Modal.Body>
-              <p style={{minHeight: 300, minWidth: 300, textAlign: 'center'}}>
-              This is where the visualizations will go.
-              </p>
+              <P5Wrapper sketch={sketch} />
             </Modal.Body>
           </Modal>
           : null
@@ -246,6 +246,7 @@ class Main extends Component {
             textAlign: 'center',
             paddingTop: 6,
             borderTop: '1px solid lightgray',
+            borderBottom: '1px solid lightgray',
             cursor: 'pointer',
             width: '3%'}}
           onClick={() => this.setState({visOn: !this.state.visOn})}
