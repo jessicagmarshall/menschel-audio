@@ -52,3 +52,41 @@ In another terminal window, navigate to `menschel-fe` and run
 yarn
 yarn start
 ```
+
+### To access the pi
+
+connect to the pi via wifi or ethernet and enter `http://server.local` into the browser
+or in terminal, `ssh parrot@server.local` or `ssh parrot@127.0.0.1.local`
+
+### Raspberry Pi specific commands that are useful
+
+If the pi starts up in terminal mode and you want the GUI
+`sudo startx`
+
+To open chromium browser
+`chromium-browser`
+or
+`chromium-browser -no-sandbox`
+
+To change ssid
+```
+sudo nano /etc/ssid.conf
+sudo reboot
+```
+
+To change password
+```
+sudo nano /etc/hostapd/hostapd.conf
+sudo reboot
+```
+
+To change hostname
+```
+sudo nano /etc/hostname
+sudo nano /etc/hosts
+sudo reboot
+```
+
+### Raspberry Pi specific files that are useful
+ `/etc/network/interfaces` --> to switch the server pi between local networking & Internet
+ `/etc/resolv.conf` --> to switch nameservers
